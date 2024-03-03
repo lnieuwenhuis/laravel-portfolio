@@ -21,7 +21,7 @@ class OwnerAuth
         }
 
         if (Auth::user()->role !== 'owner') {
-            return redirect('/');
+            return redirect('/')->with('error', 'You are not authorized to access this page');
         }
 
         return $next($request);
