@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('owner')->group(function () {
+Route::middleware(['auth', 'verified', 'owner'])->group(function () {
     Route::resource('dashboard/projects', ProjectController::class)->except('show');
 });
 
