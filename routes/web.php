@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,8 +20,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'owner'])->name('dashboard');
+    if (Auth::user()->role === 'owner') {
+        return view('owner.dashboard');
+    } else if (Auth::user()->role === 'user') {
+        return view('user.dashboard');
+    }
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('owner')->group(function () {
+    Route::resource('dashboard/projects', ProjectController::class)->except('show');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
