@@ -17,9 +17,9 @@
                     <div class="flex flex-row justify-between text-lg font-bold">
                         <h1>Title</h1>
                         <h1>Description</h1>
-                        <h1>Status</h1>
-                        <h1>URL</h1>
-                        <h1>Github</h1>
+                        <h1 class="hidden lg:block">Status</h1>
+                        <h1 class="hidden md:block">URL</h1>
+                        <h1 class="hidden sm:block">Github</h1>
                         <h1>Actions</h1>
                     </div>
                     <div class="grid grid-cols-1 gap-1">
@@ -27,7 +27,8 @@
                             <p>There are no projects yet.</p>
                         @else
                             @foreach ($projects as $project)
-                                <div class="grid grid-cols-6 gap-1 border-b-gray-200 border-b">
+                                <div
+                                    class="grid lg:grid-cols-6 gap-1 border-b-gray-200 border-b md:grid-cols-5 sm:grid-cols-4 grid-cols-3">
                                     <h1 class="">{{ $project->name }}</h1>
 
                                     <script>
@@ -42,10 +43,10 @@
                                         }
                                     </script>
 
-                                    <button class=" -ml-16" onclick="toggleDescription({{ $project->id }})">Show
+                                    <button class=" -ml-12" onclick="toggleDescription({{ $project->id }})">Show
                                         Description</button>
                                     <div id="description-{{ $project->id }}" style="display: none;"
-                                        class=" bg-gray-200 w-4/12 h-1/4 rounded-lg shadow-lg border-black box-border mx-auto my-auto">
+                                        class=" bg-gray-200 w-4/5 md:w-1/2 lg:w-1/3 h-1/4 rounded-lg shadow-lg border-black box-border mx-auto my-auto">
                                         <div class="flex flex-row m-2">
                                             <h1 class="text-lg font-bold">Description</h1>
                                             <button
@@ -57,9 +58,9 @@
                                     </div>
 
 
-                                    <h1 class="mx-auto">{{ $project->status }}</h1>
-                                    <h1 class="text-center">{{ $project->url }}</h1>
-                                    <a class="ml-auto mr-7"
+                                    <h1 class="mx-auto hidden lg:block">{{ $project->status }}</h1>
+                                    <h1 class="text-center hidden md:block">{{ $project->url }}</h1>
+                                    <a class="ml-auto mr-7 hidden sm:block"
                                         @if (!$project->github) href="#" disabled 
                                 @else 
                                 href="{{ $project->github }}" @endif>{{ $project->name }}</a>
