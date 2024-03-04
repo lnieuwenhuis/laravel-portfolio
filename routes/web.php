@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,10 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::resource('projects', ProjectController::class)->only('index', 'show');
+
 Route::middleware(['auth', 'verified', 'owner'])->group(function () {
-    Route::resource('dashboard/projects', ProjectController::class)->except('show');
+    Route::resource('dashboard/projects', OwnerController::class);
 });
 
 Route::middleware('auth')->group(function () {

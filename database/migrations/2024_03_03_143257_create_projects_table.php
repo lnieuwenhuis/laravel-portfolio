@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('status')->default('released');
+            $table->string('status')->default('Non-Public');
             $table->string('url')->nullable();
             $table->string('github')->nullable();
 
